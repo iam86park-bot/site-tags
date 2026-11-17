@@ -18,8 +18,8 @@
     var m=location.search.match(/product_no=(\d+)/) || path.match(/\/product\/[^\/]*\/(\d+)\//) || path.match(/\/(\d+)\/category\//);
     return m?m[1]:"";
   }
-  if (/\/product\//.test(path) || /product_no=/.test(location.search)) {
-    var pn=productNo();
+  var pn=(/\/product\/(detail\.html|[^\/]+\/\d+\/)/.test(path) || /product_no=/.test(location.search)) ? productNo() : "";
+  if (pn) {
     ev("ViewContent", {content_ids: pn?[pn]:[], content_type:"product", currency:"KRW"});
     document.addEventListener("click", function(e){
       var el=e.target && e.target.closest ? e.target.closest("a,button,input,span,div") : null;
